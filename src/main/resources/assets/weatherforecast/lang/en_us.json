@@ -1,0 +1,29 @@
+{
+  "itemGroup.weatherforecast": "Weather Forecast",
+
+  "item.weatherforecast.weather_radar": "Weather Radar",
+  "item.weatherforecast.weather_helmet": "Weather Forecast Helmet",
+  "item.weatherforecast.temperature_probe": "Temperature Probe",
+
+  "tooltip.weatherforecast.temperature_probe": "Carry it with you to display ambient temperature",
+  "tooltip.weatherforecast.weather_radar": "Carry it with you to receive weather forecast at morning and evening",
+  "tooltip.weatherforecast.weather_helmet": "Gear it up to receive weather forecast at morning and evening",
+
+  "weatherforecast.message.rain_approach_tomorrow": "[WEATHER FORECAST] Good evening! It would likely rain tomorrow, take care!",
+  "weatherforecast.message.rain_approach_tonight": "[WEATHER FORECAST] Good evening! It would likely rain tonight, take care!",
+  "weatherforecast.message.thunder_approach_tomorrow": "[WEATHER FORECAST] Good evening! A storm is approaching tomorrow, be aware of lightning bolts!",
+  "weatherforecast.message.thunder_approach_tonight": "[WEATHER FORECAST] Good evening! A storm is approaching tonight, shut your curtains!",
+  "weatherforecast.message.clear_sky_tomorrow": "[WEATHER FORECAST] Good evening! The sky will be clear tomorrow, woohoo.",
+  "weatherforecast.message.clear_sky_tonight": "[WEATHER FORECAST] Good evening! The sky will be clear tonight, nice dream!",
+  "weatherforecast.message.no_rain_or_thunder_tomorrow": "[WEATHER FORECAST] Good evening! No bad weather tomorrow, have a good sleep!",
+  "weatherforecast.message.continue_rain_or_thunder_tomorrow": "[WEATHER FORECAST] Good evening! Bad news: the bad weather is continuing tomorrow.",
+
+  "weatherforecast.message.rain_approach_today": "[WEATHER FORECAST] Good morning! It would likely rain today, take care!",
+  "weatherforecast.message.rain_approach_evening": "[WEATHER FORECAST] Good morning! It would likely rain this evening, take care!",
+  "weatherforecast.message.thunder_approach_today": "[WEATHER FORECAST] Good morning! A storm is approaching today, be aware of lightning bolts!",
+  "weatherforecast.message.thunder_approach_evening": "[WEATHER FORECAST] Good morning! A storm is approaching this evening, shut your curtains!",
+  "weatherforecast.message.clear_sky_today": "[WEATHER FORECAST] Good morning! The sky will be clear today, woohoo.",
+  "weatherforecast.message.clear_sky_evening": "[WEATHER FORECAST] Good morning! The sky will be clear this evening, happy adventure!",
+  "weatherforecast.message.no_rain_or_thunder_today": "[WEATHER FORECAST] Good morning! No bad weather today, have some sunlight.",
+  "weatherforecast.message.continue_rain_or_thunder_today": "[WEATHER FORECAST] Good morning! Bad news: the bad weather is continuing today."
+}
