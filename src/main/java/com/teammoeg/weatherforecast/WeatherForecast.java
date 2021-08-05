@@ -22,6 +22,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -53,6 +54,7 @@ public class WeatherForecast {
         return new ResourceLocation(MODID, path);
     }
 
+    @OnlyIn(Dist.CLIENT)
     public static World getWorld() {
         return Minecraft.getInstance().world;
     }
@@ -98,6 +100,10 @@ public class WeatherForecast {
                 event.addCapability(TempForecastCapabilityProvider.KEY, new TempForecastCapabilityProvider());
             }
         }
+    }
+
+    @Mod.EventBusSubscriber(modid = WeatherForecast.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+    public static class ClientForgeEvents {
 
         @SubscribeEvent
         public static void addItemToolTip(ItemTooltipEvent event) {
@@ -112,10 +118,6 @@ public class WeatherForecast {
                 event.getToolTip().add(new TranslationTextComponent("tooltip.weatherforecast.weather_helmet").mergeStyle(TextFormatting.GRAY));
             }
         }
-    }
-
-    @Mod.EventBusSubscriber(modid = WeatherForecast.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
-    public static class ClientForgeEvents {
 
         @SubscribeEvent
         public static void onRenderGameOverlayText(RenderGameOverlayEvent.Text event) {

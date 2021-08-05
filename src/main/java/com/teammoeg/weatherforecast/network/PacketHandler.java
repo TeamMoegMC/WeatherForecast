@@ -26,7 +26,5 @@ public class PacketHandler {
         int id = 0;
 
         CHANNEL.registerMessage(id++, WeatherPacket.class, WeatherPacket::encode, WeatherPacket::new, WeatherPacket::handle);
-        CHANNEL.registerMessage(id++, EveningBroadcastStatusPacket.class, EveningBroadcastStatusPacket::encode, EveningBroadcastStatusPacket::new, EveningBroadcastStatusPacket::handle);
-        CHANNEL.registerMessage(id++, MorningBroadcastStatusPacket.class, MorningBroadcastStatusPacket::encode, MorningBroadcastStatusPacket::new, MorningBroadcastStatusPacket::handle);
     }
 }
