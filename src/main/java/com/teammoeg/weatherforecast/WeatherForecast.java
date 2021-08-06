@@ -12,8 +12,10 @@ import com.teammoeg.weatherforecast.util.UV4i;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.IngameGui;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -28,6 +30,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -35,6 +38,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
@@ -98,6 +102,23 @@ public class WeatherForecast {
         public static void onAttachCapabilitiesWorld(AttachCapabilitiesEvent<World> event) {
             if (event.getObject() != null) {
                 event.addCapability(TempForecastCapabilityProvider.KEY, new TempForecastCapabilityProvider());
+            }
+        }
+
+        @SubscribeEvent
+        public static void addWeatherToolsOnFirstLogin(@Nonnull PlayerEvent.PlayerLoggedInEvent event) {
+            CompoundNBT nbt = event.getPlayer().getPersistentData();
+            CompoundNBT persistent;
+            if (nbt.contains(PlayerEntity.PERSISTED_NBT_TAG)) {
+                persistent = nbt.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
+            } else {
+                nbt.put(PlayerEntity.PERSISTED_NBT_TAG, (persistent = new CompoundNBT()));
+            }
+            if (!persistent.contains("weatherforecast_first_login")) {
+                persistent.putBoolean("weatherforecast_first_login", false);
+                event.getPlayer().inventory.addItemStackToInventory(new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("weatherforecast", "weather_radar"))));
+                event.getPlayer().inventory.addItemStackToInventory(new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("weatherforecast", "weather_helmet"))));
+                event.getPlayer().inventory.addItemStackToInventory(new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("weatherforecast", "temperature_probe"))));
             }
         }
     }
@@ -330,6 +351,7 @@ public class WeatherForecast {
             RenderSystem.disableAlphaTest();
         }
 
+        @OnlyIn(Dist.CLIENT)
         private static void renderTemp(MatrixStack stack, Minecraft mc, double temp, int offsetX, int offsetY, boolean celsius) {
             UV4i unitUV = celsius ? new UV4i(0, 25, 13, 34) : new UV4i(13, 25, 26, 34);
             UV4i signUV = temp >= 0 ? new UV4i(61, 17, 68, 24) : new UV4i(68, 17, 75, 24);
@@ -385,6 +407,7 @@ public class WeatherForecast {
             }
         }
 
+        @OnlyIn(Dist.CLIENT)
         private static ArrayList<UV4i> getIntegerDigitUVs(int digit) {
             ArrayList<UV4i> rtn = new ArrayList<>();
             UV4i v1, v2, v3;
@@ -413,6 +436,7 @@ public class WeatherForecast {
             return rtn;
         }
 
+        @OnlyIn(Dist.CLIENT)
         private static UV4i getDecDigitUV(int dec) {
             return new UV4i(6 * (dec - 1), 17, 6 * dec, 25);
         }

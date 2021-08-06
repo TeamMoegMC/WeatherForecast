@@ -1,13 +1,16 @@
 modLoader = "javafml" #mandatory
 loaderVersion = "[36,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 license = "GPLv3"
+issueTrackerURL="https://github.com/TeamMoegMC/Weather-Forecast/issues"
 [[mods]] #mandatory
 modId = "weatherforecast" #mandatory
-version = "1.0.0" #mandatory
-displayName = "WeatherForecast" #mandatory
+version = "1.0.1" #mandatory
+displayName = "Weather Forecast" #mandatory
+logoFile="logo.png" #optional
 authors = "YueSha" #optional
+credits="Many thanks to Luyuuke and duck_egg for creating textures" #optional
 description = '''
-Forecast future weather
+Forecast future weather & Show ambient temperature
 '''
 [[dependencies.weatherforecast]] #optional
 modId = "forge" #mandatory
