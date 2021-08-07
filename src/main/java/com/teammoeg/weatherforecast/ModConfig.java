@@ -20,11 +20,11 @@ public class ModConfig {
 
             tempOrbOffsetX = builder
                     .comment("X Offset of the temperature orb. The anchor point is defined by the tempOrbPosition value. Only when you set tempOrbPosition to value other than MIDDLE will this value be used. ")
-                    .defineInRange("tempOrbOffsetX", 0, -256, 256);
+                    .defineInRange("tempOrbOffsetX", 0, -4096, 4096);
 
             tempOrbOffsetY = builder
                     .comment("Y Offset of the temperature orb. The anchor point is defined by the tempOrbPosition value. Only when you set tempOrbPosition to value other than MIDDLE will this value be used.  ")
-                    .defineInRange("tempOrbOffsetY", 0, -256, 256);
+                    .defineInRange("tempOrbOffsetY", 0, -4096, 4096);
         }
     }
 

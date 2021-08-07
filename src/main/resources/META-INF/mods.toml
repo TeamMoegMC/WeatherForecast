@@ -4,7 +4,7 @@ license = "GPLv3"
 issueTrackerURL="https://github.com/TeamMoegMC/Weather-Forecast/issues"
 [[mods]] #mandatory
 modId = "weatherforecast" #mandatory
-version = "1.0.1" #mandatory
+version = "1.0.2" #mandatory
 displayName = "Weather Forecast" #mandatory
 logoFile="logo.png" #optional
 authors = "YueSha" #optional
