@@ -49,7 +49,7 @@ import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType.HEALTH;
+import static net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType.FOOD;
 
 @Mod(WeatherForecast.MODID)
 public class WeatherForecast {
@@ -273,7 +273,7 @@ public class WeatherForecast {
         public static void renderTemperatureOrb(RenderGameOverlayEvent event) {
             Minecraft mc = Minecraft.getInstance();
             mc.getProfiler().startSection("weatherforecast_temperature");
-            if (ModConfig.CLIENT.enablesTemperatureOrb.get() && Minecraft.isGuiEnabled() && mc.world != null && !mc.gameSettings.showDebugInfo && mc.playerController != null && mc.playerController.gameIsSurvivalOrAdventure() && mc.getRenderViewEntity() != null && event.getType() == HEALTH) {
+            if (ModConfig.CLIENT.enablesTemperatureOrb.get() && Minecraft.isGuiEnabled() && mc.world != null && !mc.gameSettings.showDebugInfo && mc.playerController != null && mc.playerController.gameIsSurvivalOrAdventure() && mc.getRenderViewEntity() != null && event.getType() == FOOD) {
                 if (mc.player != null && (!ModConfig.COMMON.requiresTemperatureProbe.get() || mc.player.inventory.hasItemStack(new ItemStack(ItemRegistry.temperatureProbe.get())))) {
                     BlockPos pos = new BlockPos(mc.getRenderViewEntity().getPosX(), mc.getRenderViewEntity().getBoundingBox().minY, mc.getRenderViewEntity().getPosZ());
                     double temperature = MathHelper.clamp(mc.world.getBiome(pos).getTemperature(pos), -0.5, 2.0);
