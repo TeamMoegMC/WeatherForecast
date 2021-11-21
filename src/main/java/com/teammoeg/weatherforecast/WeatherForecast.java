@@ -109,18 +109,20 @@ public class WeatherForecast {
 
         @SubscribeEvent
         public static void addWeatherToolsOnFirstLogin(@Nonnull PlayerEvent.PlayerLoggedInEvent event) {
-            CompoundNBT nbt = event.getPlayer().getPersistentData();
-            CompoundNBT persistent;
-            if (nbt.contains(PlayerEntity.PERSISTED_NBT_TAG)) {
-                persistent = nbt.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
-            } else {
-                nbt.put(PlayerEntity.PERSISTED_NBT_TAG, (persistent = new CompoundNBT()));
-            }
-            if (!persistent.contains("weatherforecast_first_login")) {
-                persistent.putBoolean("weatherforecast_first_login", false);
-                event.getPlayer().inventory.addItemStackToInventory(new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("weatherforecast", "weather_radar"))));
-                event.getPlayer().inventory.addItemStackToInventory(new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("weatherforecast", "weather_helmet"))));
-                event.getPlayer().inventory.addItemStackToInventory(new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("weatherforecast", "temperature_probe"))));
+            if (ModConfig.COMMON.giveInitialWeatherTools.get()) {
+                CompoundNBT nbt = event.getPlayer().getPersistentData();
+                CompoundNBT persistent;
+                if (nbt.contains(PlayerEntity.PERSISTED_NBT_TAG)) {
+                    persistent = nbt.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
+                } else {
+                    nbt.put(PlayerEntity.PERSISTED_NBT_TAG, (persistent = new CompoundNBT()));
+                }
+                if (!persistent.contains("weatherforecast_first_login")) {
+                    persistent.putBoolean("weatherforecast_first_login", false);
+                    event.getPlayer().inventory.addItemStackToInventory(new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("weatherforecast", "weather_radar"))));
+                    event.getPlayer().inventory.addItemStackToInventory(new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("weatherforecast", "weather_helmet"))));
+                    event.getPlayer().inventory.addItemStackToInventory(new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("weatherforecast", "temperature_probe"))));
+                }
             }
         }
     }
@@ -163,9 +165,9 @@ public class WeatherForecast {
             Minecraft mc = Minecraft.getInstance();
             if (mc.player != null) {
                 boolean flag0 = ModConfig.COMMON.enablesTemperatureForecast.get();
-                boolean flag1 = !ModConfig.COMMON.requiresWeatherRadar.get() || mc.player.inventory.hasItemStack(new ItemStack(ItemRegistry.weatherRadar.get()));
-                boolean flag2 = !ModConfig.COMMON.requiresWeatherHelmet.get() || mc.player.inventory.armorItemInSlot(3).isItemEqualIgnoreDurability(new ItemStack(ItemRegistry.weatherHelmet.get()));
-                boolean configAllows = flag0 && flag1 && flag2;
+                boolean flag1 = mc.player.inventory.hasItemStack(new ItemStack(ItemRegistry.weatherRadar.get()));
+                boolean flag2 = mc.player.inventory.armorItemInSlot(3).isItemEqualIgnoreDurability(new ItemStack(ItemRegistry.weatherHelmet.get()));
+                boolean configAllows = flag0 && (flag1 || flag2);
                 if (configAllows && Minecraft.isGuiEnabled() && mc.world != null && !mc.gameSettings.showDebugInfo) {
                     ITempForecastCapability capability = mc.world.getCapability(TempForecastCapabilityProvider.CAPABILITY).orElse(new TempForecastCapability(0, 0, 0, false, false));
                     int clearTime = capability.getClearTime();

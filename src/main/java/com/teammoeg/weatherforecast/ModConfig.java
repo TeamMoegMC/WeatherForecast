@@ -32,8 +32,7 @@ public class ModConfig {
 
         public final ForgeConfigSpec.BooleanValue enablesTemperatureForecast;
         public final ForgeConfigSpec.BooleanValue requiresTemperatureProbe;
-        public final ForgeConfigSpec.BooleanValue requiresWeatherRadar;
-        public final ForgeConfigSpec.BooleanValue requiresWeatherHelmet;
+        public final ForgeConfigSpec.BooleanValue giveInitialWeatherTools;
 
         Common(ForgeConfigSpec.Builder builder) {
             enablesTemperatureForecast = builder
@@ -44,13 +43,9 @@ public class ModConfig {
                     .comment("Requires the player to have the temperature probe item to show temperature orb overlay. ")
                     .define("requiresTemperatureProbe", true);
 
-            requiresWeatherRadar = builder
-                    .comment("Requires the player to have the weather radar item to enable morning / evening weather forecast. ")
-                    .define("requiresWeatherRadar", true);
-
-            requiresWeatherHelmet = builder
-                    .comment("Requires the player to have the weather helmet geared to enable morning / evening weather forecast. ")
-                    .define("requiresWeatherHelmet", true);
+            giveInitialWeatherTools = builder
+                    .comment("Provides the player initial weather tools on first login. ")
+                    .define("giveInitialWeatherTools", false);
         }
     }
 
